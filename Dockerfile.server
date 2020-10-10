@@ -1,0 +1,6 @@
+FROM openjdk:8u252-jdk
+
+COPY build/libs/docker-demo-1.jar /app.jar
+
+# java -jar /app.jar server
+CMD ["java", "-jar", "/app.jar", "server"]
