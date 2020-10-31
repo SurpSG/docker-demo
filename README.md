@@ -1,6 +1,11 @@
 # docker-demo
 Client-server app sending a text message via TCP connection
 
+## Build app
+```
+./gradlew jar
+```
+
 ## Run app in Docker
 Create a netowrk and volume
 ```
