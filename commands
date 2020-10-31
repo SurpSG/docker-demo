@@ -1,8 +1,8 @@
- docker build -t server-image -f ./Dockerfile.server .
- docker build -t client-image -f ./Dockerfile.client .
-
- docker run --rm -d --name server-container server-image
- docker run --rm client-image
-
  docker network create cs-net
  docker volume create cs-vol
+
+ docker build -t server-image -f ./Dockerfile.server .
+ docker run --rm -d --name server-container server-image
+
+ docker build -t client-image -f ./Dockerfile.client .
+ docker run --rm client-image
