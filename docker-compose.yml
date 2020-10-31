@@ -5,16 +5,23 @@ services:
   client:
     build:
       context: .
-      dockerfile: Dockerfile.client
+      dockerfile: Dockerfile
     container_name: client-container
+    environment:
+      - mode=client
+      - addr=server-container
+      - port=8888
     depends_on:
       - server
 
   server:
     build:
       context: .
-      dockerfile: Dockerfile.server
+      dockerfile: Dockerfile
     container_name: server-container
+    environment:
+      - mode=server
+      - port=8888
     volumes:
     - "server-vol:/tmp/"
 

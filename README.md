@@ -8,19 +8,18 @@ docker network create cs-net
 docker volume create cs-vol
 ```
 
-### Build Docker images
+### Build Docker image
 ```
-# server image
-docker build -t server-image -f ./Dockerfile.server .
-
-# client image
-docker build -t client-image -f ./Dockerfile.client .
+docker build -t client-server-image .
 ```
 
 ### Run containers
 ```
-docker run --rm -d --name server-container server-image
-docker run --rm client-image
+# server
+docker run --rm -d --name server-container -e mode=server -e port=8888 --net cs-net -v cs-vol client-server-image
+
+# client
+docker run --rm -e mode=client -e addr=server-container -e port=8888  --net cs-net client-server-image
 ```
 
 ## Run app using docker-compose

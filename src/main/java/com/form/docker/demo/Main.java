@@ -8,16 +8,17 @@ import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.stream.Stream;
 
+import static java.lang.System.getenv;
+
 public class Main {
 
     public static void main( String[] args ) throws Exception {
-        String address = "localhost";
-        int port = 8888;
-
-        if ( "server".equals( args[0] ) ) {
+        String mode = getenv( "mode" );
+        int port = Integer.parseInt( getenv( "port" ) );
+        if ( "server".equals( mode ) ) {
             new Server( port ).start();
-        } else if ( "client".equals( args[0] ) ) {
-            new Client( address, port ).start();
+        } else if ( "client".equals( mode ) ) {
+            new Client( getenv( "addr" ), port ).start();
         } else {
             throw new IllegalArgumentException();
         }
@@ -53,11 +54,11 @@ public class Main {
         }
 
         private void printFiles() {
-            System.out.println("Files in /tmp dir:");
-            Stream.of( new File( "/tmp").list() )
+            System.out.println( "Files in /tmp dir:" );
+            Stream.of( new File( "/tmp" ).list() )
                   .filter( it -> it.startsWith( "client_request" ) )
                   .forEach( file -> System.out.println( "\t" + file ) );
-            System.out.println("==================================");
+            System.out.println( "==================================" );
         }
     }
 
